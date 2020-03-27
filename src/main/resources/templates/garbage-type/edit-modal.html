@@ -1,0 +1,88 @@
+<div class="modal-dialog modal-lg" xmlns:th="http://www.thymeleaf.org">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">编辑垃圾类型</h4>
+        </div>
+        <small class="font-bold">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <form id="edit-garbage-type-form" method="post" class="form-horizontal"
+                                      th:action="@{/admin/garbageType/edit}">
+                                    <input name="id" type="hidden" th:value="${garbageType.id}"/>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">名称<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="name"
+                                                   th:value="${garbageType.name}"/>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">描述<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <textarea name="description" class="form-control"
+                                                      th:text="${garbageType.description}"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">处置要求<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <textarea name="handleRequire" class="form-control"
+                                                      th:text="${garbageType.handleRequire}"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">常见垃圾<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <textarea name="commonGarbage" class="form-control"
+                                                      th:text="${garbageType.commonGarbage}"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <button class="btn btn-primary" type="submit">确定修改</button>
+                                            <button class="btn btn-white" type="button" data-dismiss="modal">取消</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </small>
+    </div>
+</div>
+<script>
+    $(function () {
+        //表单验证
+        $("#edit-garbage-type-form").validate({
+            rules: {
+                name: "required",
+                description: "required",
+                handleRequire: "required",
+                commonGarbage: "required"
+            }, messages: {
+                name: "请输入类型名称",
+                description: "请输入类型描述",
+                handleRequire: "请输入处置要求",
+                commonGarbage: "请输入常见垃圾"
+            }
+        });
+    });
+</script>

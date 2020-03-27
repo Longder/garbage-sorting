@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<!--引入统一头-->
+<head th:include="import/head :: head"></head>
+<body>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>垃圾列表</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="col-sm-3">
+                        <span class="input-group-btn">
+                        <input class="btn btn-success" data-backdrop="static" data-target="#garbageModal"
+                               data-toggle="modal"
+                               onclick="openModal('/admin/garbage/toAdd','garbageModal')"
+                               type="button"
+                               value="新增垃圾"/>
+                        </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+
+                    </div>
+                </div>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>名称</th>
+                        <th>所属类型</th>
+                        <th>描述</th>
+                        <th>处置要求</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="garbage:${list}">
+                        <td th:text="${garbageStat.index+1}"></td>
+                        <td th:text="${garbage.name}"></td>
+                        <td th:text="${garbage.garbageType.name}"></td>
+                        <td th:text="${garbage.garbageType.description}"></td>
+                        <td th:text="${garbage.garbageType.handleRequire}"></td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                    data-target="#garbageModal"
+                                    th:onclick="'javascript:openModal(\'/admin/garbage/toEdit?garbageId='+${garbage.id}+'\',\'garbageModal\')'">
+                                编辑
+                            </button>
+                            <a th:href="@{/admin/garbage/delete(garbageId=${garbage.id})}" type="button" class="btn btn-sm btn-danger" onclick="return confirm('确定删除吗？')">
+                                删除
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div aria-hidden="true" class="modal inmodal fade" id="garbageModal" role="dialog" tabindex="-1"></div>
+<!--引入统一JS-->
+<script th:replace="import/script :: script"></script>
+</body>
+</html>
